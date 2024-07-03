@@ -25,3 +25,7 @@ std::string VOID::getVOID() const {
 bool VOID::isSet(const std::string &vo_id) const {
     return !vo_id.empty();
 }
+
+bool VOID::isEqual(VOID &avoid) {
+    return this->vo_id == avoid.vo_id;
+}

@@ -39,5 +39,9 @@ int Price::checkAmount(int &amount) {
     else {
         tempAmount = amount;
     }
-    return amount;
+    return tempAmount;
+}
+
+bool Price::isEqual(Price &price) {
+    return this->price == price.price;
 }

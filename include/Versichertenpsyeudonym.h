@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
+
+#include "include.h"
 
 class InsuredPseudonym {
 public:
@@ -13,7 +14,9 @@ public:
     void setInsuredPseudonym(std::string& insuredPseudonym);
     std::string getInsuredPseudonym();
 
-    bool isSet(std::string& insuredPseudonym);
+    bool isSet();
+    bool isEqual(InsuredPseudonym& insuredPseudonym);
+
 private:
     std::string insuredPseudonym;
 };

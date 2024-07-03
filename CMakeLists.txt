@@ -1,73 +1,57 @@
-#[[
-Created by Jakob Glück 2024
+cmake_minimum_required(VERSION 3.14.0)
 
-Copyright © 2024 CARENOBLE Gesellschaft für Gesundheitsökonomie mbH & Co. KG
+# Project Name
+project(DataManager)
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+# Set C++ Standard
+set(CMAKE_CXX_STANDARD 17)
 
-1. Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
+# Compiler Flags
+set(CMAKE_CXX_FLAGS "-g -Wall ${CMAKE_CXX_FLAGS} -O0")
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+# Common Includes
+set(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/include)
+include_directories(${COMMON_INCLUDES})
 
-3. Neither the name of the copyright holder nor the names of its contributors
-   may be used to endorse or promote products derived from this software without
-   specific prior written permission.
+# Enable FetchContent module
+include(FetchContent)
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-]]
-
-# Use Version greater than 3.11 to use Fetch-Content
-CMAKE_MINIMUM_REQUIRED(VERSION 3.14.0)
-
-# SET name of the Project
-PROJECT(DataManager)
-# create execute command
-SET(CMAKE_CXX_FLAGS "-g -Wall ${CMAKE_CXX_FLAGS} -O0")
-
-# set the c++ standard
-SET(CMAKE_CXX_STANDARD 17)
-
-#  make include-directory public to the other files
-SET(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/include)
-INCLUDE_DIRECTORIES(${COMMON_INCLUDES})
-
-# enable Fetch-Content use cases
-INCLUDE(FetchContent)
-
-# Fetch and include libxlsxwriter
+# Fetch libxlsxwriter
 FetchContent_Declare(
         libxlsxwriter
         GIT_REPOSITORY https://github.com/jmcnamara/libxlsxwriter.git
-        GIT_TAG        main
+        GIT_TAG main
 )
 FetchContent_MakeAvailable(libxlsxwriter)
 
-# Fetch and include libxls
+# Fetch libxls
 FetchContent_Declare(
         libxls
         GIT_REPOSITORY https://github.com/libxls/libxls.git
-        GIT_TAG        master
+        GIT_TAG master
 )
 FetchContent_MakeAvailable(libxls)
 
-# link src-directory
-ADD_SUBDIRECTORY(src)
+# Find Poppler using PkgConfig
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(POPPLER REQUIRED poppler-cpp)
 
-# allow Unit-Tests
-ENABLE_TESTING()
+# Print the value of POPPLER_INCLUDE_DIRS and POPPLER_LIBRARY_DIRS
+message("POPPLER_INCLUDE_DIRS: ${POPPLER_INCLUDE_DIRS}")
+message("POPPLER_LIBRARY_DIRS: ${POPPLER_LIBRARY_DIRS}")
 
-# link test-directory
-ADD_SUBDIRECTORY(test)
+# Add Poppler include directories
+include_directories(${POPPLER_INCLUDE_DIRS})
+
+# Add Poppler library directories
+link_directories(${POPPLER_LIBRARY_DIRS})
+
+# Add subdirectories
+add_subdirectory(src)
+enable_testing()
+add_subdirectory(test)
+
+# Custom target to print compiler flags
+add_custom_target(print-compiler-flags ALL
+        COMMAND ${CMAKE_CXX_COMPILER} -E -x c++ - -v < /dev/null
+)

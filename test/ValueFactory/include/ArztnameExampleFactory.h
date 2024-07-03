@@ -41,16 +41,16 @@ public:
     static std::string invalidNumberVorname4();
     static std::string invalidNumberNachname4();
 
-    static Arztname normalName();
-    static Arztname shortName();
-    static Arztname longName();
-    static Arztname doubleName();
-    static Arztname tripleName();
-    static Arztname validNumberName();
-    static Arztname emtpyName();
-    static Arztname invalidNumberName1();
-    static Arztname invalidNumberName2();
-    static Arztname invalidNumberName3();
-    static Arztname invalidNumberName4();
+    static DoctorName normalName();
+    static DoctorName shortName();
+    static DoctorName longName();
+    static DoctorName doubleName();
+    static DoctorName tripleName();
+    static DoctorName validNumberName();
+    static DoctorName emtpyName();
+    static DoctorName invalidNumberName1();
+    static DoctorName invalidNumberName2();
+    static DoctorName invalidNumberName3();
+    static DoctorName invalidNumberName4();
 };
 

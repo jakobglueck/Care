@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
+
+#include "include.h"
 
 namespace PriceType{
     enum type{
@@ -23,6 +24,7 @@ public:
     float getAmount() const;
 
     bool isNULL() const;
+    bool isEqual(Price& price);
 
 private:
     int checkAmount(int &amount);

@@ -49,3 +49,7 @@ void PharmacyName::removeNameAttachments(std::string &pharmacyName) const {
         }
     }
 }
+
+bool PharmacyName::isEqual(PharmacyName &pharmacyName) {
+    return this->pharmacyName == pharmacyName.pharmacyName;
+}

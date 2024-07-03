@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
-#include <regex>
+
+#include "include.h"
 #include "Preis.h"
 
 class Pharmaceutical{
@@ -20,14 +20,17 @@ public:
     std::string getPZN();
     Price getPrice();
 
+    bool isSet();
+    bool isEqual(Pharmaceutical& pharmaceutical);
+
+private:
     bool detectWrongPZN(std::string& pzn);
     bool detectWrongPharmaceuticalName(std::string& pharmaceuticalName);
     std::string& convertNameForIHPE(std::string& pzn, std::string& pharmaceuticalName);
+    std::string convertPharmaceuticalName(std::string& name);
 
     bool equalPrice(Price& price);
 
-private:
-    std::string convertPharmaceuticalName(std::string& name);
     std::string pharmaceuticalName;
     std::string pzn;
     Price price;

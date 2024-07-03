@@ -3,37 +3,39 @@
 //
 #include "Arztname.h"
 
-Arztname::Arztname(std::string &vorname, std::string &nachname, DoctorTitle& doctorTitle){
+DoctorName::DoctorName(std::string &vorname, std::string &nachname, DoctorTitle &doctorTitle){
     this->correctVorname(vorname);
     this->correctNachname(nachname);
     this->setDoctorTitle(doctorTitle);
     this->ConvertFullName();
 }
 
-void Arztname::setVorname(std::string &vorname) {
+DoctorName::DoctorName() {}
+
+void DoctorName::setVorname(std::string &vorname) {
     this->vorname = vorname;
 }
 
-void Arztname::setNachname(std::string &nachname) {
+void DoctorName::setNachname(std::string &nachname) {
     this->nachname = nachname;
 }
 
-void Arztname::setDoctorTitle(DoctorTitle &doctorTitle) {
+void DoctorName::setDoctorTitle(DoctorTitle &doctorTitle) {
 }
 
-std::string Arztname::getVorname() {
+std::string DoctorName::getVorname() {
     return this->vorname;
 }
 
-std::string Arztname::getNachname() {
+std::string DoctorName::getNachname() {
     return this->vorname;
 }
 
-DoctorTitle Arztname::getDoctorTitle() {
+DoctorTitle DoctorName::getDoctorTitle() {
     return this->doctorTitle;
 }
 
-bool Arztname::checkString(std::string &name) {
+bool DoctorName::checkString(std::string &name) {
     if(name.empty()){
         return false;
     }
@@ -50,7 +52,7 @@ bool Arztname::checkString(std::string &name) {
     return true;
 }
 
-void Arztname::correctVorname(std::string &vorname) {
+void DoctorName::correctVorname(std::string &vorname) {
     if(this->checkString(vorname)){
         this->vorname =  vorname;
     }
@@ -59,7 +61,7 @@ void Arztname::correctVorname(std::string &vorname) {
     }
 }
 
-void Arztname::correctNachname(std::string &nachname) {
+void DoctorName::correctNachname(std::string &nachname) {
     if (this->checkString(nachname)) {
         this->nachname = nachname;
     }
@@ -68,18 +70,18 @@ void Arztname::correctNachname(std::string &nachname) {
     }
 }
 
-void Arztname::correctDoctorTitle(std::string &doctorTitle) {
+void DoctorName::correctDoctorTitle(std::string &doctorTitle) {
     this->doctorTitle = DoctorTitle(doctorTitle);
 }
 
-bool Arztname::checkStringEmpty(std::string &name) {
+bool DoctorName::checkStringEmpty(std::string &name) {
     if(name.empty()){
         return true;
     }
     return false;
 }
 
-void Arztname::ConvertFullName() {
+void DoctorName::ConvertFullName() {
 
     DoctorTitle doctorTitle = DoctorTitle((std::string &)"");
     std::tuple<DoctorTitle, std::string, std::string> fullname(doctorTitle, "","");
@@ -103,7 +105,7 @@ void Arztname::ConvertFullName() {
     }
 }
 
-std::tuple<DoctorTitle, std::string, std::string> Arztname::stringConverter(std::string &name) {
+std::tuple<DoctorTitle, std::string, std::string> DoctorName::stringConverter(std::string &name) {
     std::string firstName, lastName;
     DoctorTitle title = DoctorTitle((std::string &)"");
     std::istringstream iss(name);
@@ -123,4 +125,8 @@ std::tuple<DoctorTitle, std::string, std::string> Arztname::stringConverter(std:
         lastName += token;
     }
     return std::make_tuple(title, firstName, lastName);
+}
+
+bool DoctorName::isEqual(DoctorName &doctorName) {
+    return this->vorname == doctorName.vorname && this->nachname == doctorName.nachname && this->doctorTitle.isEqual(doctorName.doctorTitle);
 }

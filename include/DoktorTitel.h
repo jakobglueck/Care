@@ -1,9 +1,11 @@
 //
 // Created by Jakob Glück on 29.05.24.
 //
+
 #pragma once
 
-#include <iostream>
+#include "include.h"
+
 namespace AcademicTitles{
     enum enumTitle {
         Dr,
@@ -23,6 +25,9 @@ public:
 
     void setDoctorTitle(const std::string& doctorTitle);
     std::string getDoctorTitle() const;
+
+    bool isEqual(DoctorTitle& doctorTitle);
+
 private:
     std::string doctorTitle;
 

@@ -1,9 +1,10 @@
 //
 // Created by Jakob Glück on 29.05.24.
 //
-#include <iostream>
-#include <regex>
+
 #pragma once
+
+#include "include.h"
 
 class PostalCode{
 
@@ -15,10 +16,12 @@ public:
 
     std::string getPostalCode();
 
+    bool isEqual(PostalCode& postalCode);
+
+private:
     bool checkPostalCode(std::string& postalCode);
 
     std::string& correctPostalCode(std::string& postalCode);
 
-private:
     std::string postalCode;
 };

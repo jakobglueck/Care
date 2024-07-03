@@ -2,10 +2,9 @@
 // Created by Jakob Glück on 30.05.24.
 //
 
-#include <iostream>
-#include <vector>
-#include <regex>
-#include <ctime>
+#pragma once
+
+#include "include.h"
 
 namespace DateSpan{
     enum span{
@@ -30,6 +29,9 @@ public:
 
     void setDate(std::string& date);
     std::string getDate();
+
+    bool isSet();
+    bool isEqual(Date& date);
 
 private:
     std::vector<std::tm> detectSpan(std::string& dateSpan);

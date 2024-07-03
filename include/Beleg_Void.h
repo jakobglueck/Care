@@ -2,9 +2,9 @@
 // Created by Jakob Glück on 03.06.24.
 //
 
-
 #pragma once
-#include <iostream>
+
+#include "include.h"
 #include "Belegnr.h"
 #include "VOID.h"
 
@@ -18,6 +18,9 @@ public:
 
     VOID getVOID();
     BelegNr getBelegNr();
+
+    bool isSet();
+    bool isEqual(Beleg_Void& belegVoid);
 
 private:
     void replaceMIssingValue(BelegNr& belegNr,VOID& vo_id);

@@ -18,11 +18,15 @@ std::string InsuredPseudonym::getInsuredPseudonym() {
     return this->insuredPseudonym;
 }
 
-bool InsuredPseudonym::isSet(std::string &insuredPseudonym) {
-    if(insuredPseudonym == "" || insuredPseudonym == "#" || insuredPseudonym == "#NV" ){
+bool InsuredPseudonym::isSet() {
+    if(this->insuredPseudonym == "" || this->insuredPseudonym == "#" || this->insuredPseudonym == "#NV" ){
         return false;
     }
     else {
         return true;
     }
+}
+
+bool InsuredPseudonym::isEqual(InsuredPseudonym &insuredPseudonym) {
+    return this->insuredPseudonym == insuredPseudonym.insuredPseudonym;
 }

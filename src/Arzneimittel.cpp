@@ -34,7 +34,7 @@ void Pharmaceutical::setPrice(Price &price) {
 }
 
 std::string Pharmaceutical::getPharmaceuticalName() {
-    this->pharmaceuticalName;
+    return this->pharmaceuticalName;
 }
 
 std::string Pharmaceutical::getPZN() {
@@ -73,9 +73,11 @@ bool Pharmaceutical::detectWrongPharmaceuticalName(std::string &pharmaceuticalNa
 }
 
 std::string& Pharmaceutical::convertNameForIHPE(std::string &pzn, std::string& pharmaceuticalName) {
+    std::string temp = pharmaceuticalName;
     if(pzn == "09999100" || pzn == "9999100"){
-        pharmaceuticalName = "Par.Ernährung (reg.)";
+        temp = "Par.Ernährung (reg.)";
     }
+    return temp;
 }
 
 bool Pharmaceutical::equalPrice(Price &price) {
@@ -87,4 +89,19 @@ bool Pharmaceutical::equalPrice(Price &price) {
             return false;
         }
     }
+    return false;
+}
+
+bool Pharmaceutical::isSet() {
+    if(this->pzn == "" && this->price.isNULL() && this->pharmaceuticalName == "" ){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+bool Pharmaceutical::isEqual(Pharmaceutical &pharmaceutical) {
+    return this->pzn == pharmaceutical.pzn && this->pharmaceuticalName == pharmaceutical.pharmaceuticalName &&
+    this->price.isEqual(pharmaceutical.price);
 }

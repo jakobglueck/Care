@@ -41,3 +41,11 @@ void Beleg_Void::replaceMIssingValue(BelegNr &belegNr, VOID &vo_id) {
         vo_id.setVOID(tempVOID);
     }
 }
+
+bool Beleg_Void::isSet() {
+    return this->vo_id.getVOID() != (std::string&)"" && this->belegNr.getBelegNr() != (std::string&)"";
+}
+
+bool Beleg_Void::isEqual(Beleg_Void &belegVoid) {
+    return this->belegNr.isEqual(belegVoid.belegNr) && this->vo_id.isEqual(belegVoid.vo_id);
+}

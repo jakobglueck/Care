@@ -2,8 +2,9 @@
 // Created by Jakob Glück on 03.06.24.
 //
 
-#include <vector>
-#include <iostream>
+#pragma once
+
+#include "include.h"
 
 class PharmacyName {
 public:
@@ -12,6 +13,8 @@ public:
 
     void setPharmacyName(const std::string &pharmacyName);
     std::string getPharmacyName() const;
+
+    bool isEqual(PharmacyName& pharmacyName);
 
 private:
     bool detectNameAttachment(const std::string &pharmacyName) const;

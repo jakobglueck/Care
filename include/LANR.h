@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
-#include <regex>
+
+#include "include.h"
 
 class LANR {
 public:
@@ -16,6 +16,8 @@ public:
 
     std::string getLANR() const;
     std::string getTempLANR() const;
+
+    bool isEqual(LANR& lanr);
 
 private:
     bool detectInvalidLANR(const std::string& lanr) const;

@@ -3,8 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
-#include <regex>
+
+#include "include.h"
 
 class StreetName{
 public:
@@ -14,9 +14,12 @@ public:
 
     std::string getStreetName();
 
+    bool isEqual(StreetName& streetName);
+
+private:
     bool checkStreetName(std::string& streetName);
 
     std::string correctStreetName(std::string& postalCode);
-private:
+
     std::string streetName;
 };

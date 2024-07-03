@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
+
+#include "include.h"
 
 class VOID {
 public:
@@ -14,6 +15,7 @@ public:
     std::string getVOID() const;
 
     bool isSet(const std::string &vo_id) const;
+    bool isEqual(VOID& avoid);
 
 private:
     std::string vo_id;

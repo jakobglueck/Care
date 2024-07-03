@@ -44,7 +44,11 @@ std::string& PostalCode::correctPostalCode(std::string &postalCode) {
         }
     }
     else{
-        tempPostalCode = "";
+         tempPostalCode = "";
     }
     return tempPostalCode;
+}
+
+bool PostalCode::isEqual(PostalCode &postalCode) {
+    return this->postalCode == postalCode.postalCode;
 }

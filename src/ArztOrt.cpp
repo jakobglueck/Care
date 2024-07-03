@@ -1,7 +1,6 @@
 //
 // Created by Jakob Glück on 29.05.24.
 //
-#include "xls.h"
 #include "ArztOrt.h"
 
 City::City(std::string &cityName) {
@@ -65,4 +64,8 @@ bool City::findCityNameInExcel(const char* cityName) {
 
 const char* City::converterStringToChar(const std::string &cityName) {
     return cityName.c_str();
+}
+
+bool City::isEqual(City &city) {
+    return this->cityName == city.cityName;
 }

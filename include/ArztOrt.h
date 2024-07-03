@@ -3,9 +3,9 @@
 //
 
 #pragma once
-#include <iostream>
-#include <regex>
-#include "xls.h"
+
+#include "include.h"
+#include <xls.h>
 
 class City{
 public:
@@ -15,10 +15,12 @@ public:
     void setCityName(std::string&  cityName);
     std::string getCityName();
 
-    bool checkCityName(std::string& cityName);
+    bool isEqual(City& city);
 
 private:
+    bool checkCityName(std::string& cityName);
     const char* converterStringToChar(const std::string& cityName);
     bool findCityNameInExcel(const char* cityName);
+
     std::string cityName;
 };

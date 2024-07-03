@@ -47,3 +47,7 @@ bool LANR::detectInvalidLANR(const std::string &lanr) const {
 std::string LANR::removeLANR(const std::string &lanr) const {
     return "";
 }
+
+bool LANR::isEqual(LANR &lanr) {
+    return this->lanr == lanr.lanr && this->templanr == lanr.templanr;
+}

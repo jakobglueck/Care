@@ -1,63 +1,49 @@
-#[[
-Created by Jakob Glück 2024
+# Set output directories for the test binaries and libraries
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/bin)
+set(BINARY ${CMAKE_PROJECT_NAME}_test)
 
-Copyright © 2024 CARENOBLE Gesellschaft für Gesundheitsökonomie mbH & Co. KG
+# Include directories for factories and common includes
+set(FACTORIES_INCLUDES ${PROJECT_SOURCE_DIR}/test/ValueFactory/)
+include_directories(${FACTORIES_INCLUDES})
+include_directories(${COMMON_INCLUDES})
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+# Include FetchContent module
+include(FetchContent)
 
-1. Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its contributors
-   may be used to endorse or promote products derived from this software without
-   specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-]]
-
-SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
-SET(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
-SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/bin)
-SET(BINARY ${CMAKE_PROJECT_NAME}_test)
-
-SET(FACTORIES_INCLUDES ${PROJECT_SOURCE_DIR}/test/ValueFactory/)
-INCLUDE_DIRECTORIES(${FACTORIES_INCLUDES})
-INCLUDE_DIRECTORIES(${COMMON_INCLUDES})
-
-INCLUDE(FetchContent)
-FETCHCONTENT_DECLARE(
+# Fetch GoogleTest
+FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
         GIT_TAG        release-1.12.1
 )
-FETCHCONTENT_MAKEAVAILABLE(googletest)
+FetchContent_MakeAvailable(googletest)
 
-INCLUDE_DIRECTORIES(${gtest__INCLUDE_DIRS})
+# Include directories for GoogleTest
+include_directories(${gtest_INCLUDE_DIRS})
 
-FILE(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/test_Arztname.cpp)
-MESSAGE("HEADER : ${TEST_SRC_FILES}")
+# Glob test source files
+file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/test_Arztname.cpp)
+message("HEADER : ${TEST_SRC_FILES}")
 
-File(GLOB FACTORIES_SRC ${PROJECT_SOURCE_DIR}/test/ValueFactory/src/*.cpp)
-File(GLOB FACTORIES_H ${PROJECT_SOURCE_DIR}/test/ValueFactory/include/*.h)
-ADD_LIBRARY(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC})
+# Glob factory source and header files
+file(GLOB FACTORIES_SRC ${PROJECT_SOURCE_DIR}/test/ValueFactory/src/*.cpp)
+file(GLOB FACTORIES_H ${PROJECT_SOURCE_DIR}/test/ValueFactory/include/*.h)
 
-ADD_EXECUTABLE(runUnitTest ${TEST_SRC_FILES})
+# Add library for factories
+add_library(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC})
 
-INCLUDE(GoogleTest)
-TARGET_LINK_LIBRARIES(runUnitTest  gtest gtest_main)
-TARGET_LINK_LIBRARIES(runUnitTest FACTORIES lib_extern)
-gtest_DISCOVER_TESTS(runUnitTest)
+# Add executable for running unit tests
+add_executable(runUnitTest ${TEST_SRC_FILES})
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${POPPLER_INCLUDE_DIRS})
+# Include GoogleTest
+include(GoogleTest)
+
+# Link libraries to the unit test executable
+target_link_libraries(runUnitTest PRIVATE gtest gtest_main FACTORIES lib_extern ${POPPLER_LIBRARIES})
+
+# Discover and add tests
+gtest_discover_tests(runUnitTest)

@@ -3,7 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
+
+#include "include.h"
 
 class BelegNr {
 public:
@@ -14,6 +15,7 @@ public:
     std::string getBelegNr() const;
 
     bool isSet(const std::string &belegNr) const;
+    bool isEqual(BelegNr& belegNr);
 
 private:
     std::string belegNr;

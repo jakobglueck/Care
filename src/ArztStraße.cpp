@@ -41,3 +41,7 @@ std::string StreetName::correctStreetName(std::string& postalCode) {
     }
     return tempStreetName;
 }
+
+bool StreetName::isEqual(StreetName &streetName) {
+    return this->streetName == streetName.streetName;
+}

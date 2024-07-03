@@ -142,3 +142,12 @@ bool Date::detectDateInSpan(const std::tm &date,const std::vector<std::tm> &peri
         return false;
     }
 }
+
+
+bool Date::isSet() {
+    return this->date != (std::string&)"";
+}
+
+bool Date::isEqual(Date &date) {
+    return this->date == date.date;
+}

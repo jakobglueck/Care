@@ -112,6 +112,12 @@ HealthInsuranceCompanyTypes::types HealthInsuranceCompany::stringToEnumConverter
             {"Techniker Krankenkasse",         HealthInsuranceCompanyTypes::TECHNIKER_KRANKENKASSE},
             {"Unknown",         HealthInsuranceCompanyTypes::Unknown},
     };
+    auto it = stringToEnum.find(healthInsuranceCompany);
+    if (it != stringToEnum.end()) {
+        return it->second;
+    } else {
+        return HealthInsuranceCompanyTypes::Unknown;
+    }
 }
 
 std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string &pfad) {
@@ -169,7 +175,7 @@ std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string
             {"Unknown", "Unknown"},
     };
 
-    // Search for the company in the map
+
     auto it = knownCompanies.find(company);
     if (it != knownCompanies.end()) {
         return it->second;
@@ -178,11 +184,15 @@ std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string
     }
 }
 
-bool HealthInsuranceCompany::isSet(HealthInsuranceCompanyTypes::types &healthInsuranceCompany) {
-    if(healthInsuranceCompany == HealthInsuranceCompanyTypes::types::Unknown){
+bool HealthInsuranceCompany::isSet() {
+    if(this->healthInsuranceCompany == HealthInsuranceCompanyTypes::types::Unknown){
         return false;
     }
     else{
         return true;
     }
+}
+
+bool HealthInsuranceCompany::isEqual(HealthInsuranceCompany &healthInsuranceCompany) {
+    return this->healthInsuranceCompany ==  healthInsuranceCompany.healthInsuranceCompany;
 }

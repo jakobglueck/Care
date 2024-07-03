@@ -2,7 +2,7 @@
 // Created by Jakob Glück on 03.06.24.
 //
 
-#include "BelegNr.h"
+#include "Belegnr.h"
 
 BelegNr::BelegNr(std::string &belegNr) {
     if (this->isSet(belegNr)) {
@@ -24,4 +24,8 @@ std::string BelegNr::getBelegNr() const {
 
 bool BelegNr::isSet(const std::string &belegNr) const {
     return !belegNr.empty();
+}
+
+bool BelegNr::isEqual(BelegNr &belegNr) {
+    return this->belegNr == belegNr.belegNr;
 }

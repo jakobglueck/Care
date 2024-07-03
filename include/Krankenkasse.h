@@ -3,12 +3,8 @@
 //
 
 #pragma once
-#include <iostream>
-#include <string>
-#include <unordered_map>
-#include <algorithm>
-#include <cctype>
 
+#include "include.h"
 
 namespace HealthInsuranceCompanyTypes{
     enum types{
@@ -65,11 +61,14 @@ public:
 
     void setHealthInsuranceCompany(const HealthInsuranceCompanyTypes::types& healthInsuranceCompany);
     HealthInsuranceCompanyTypes::types getHealthInsuranceCompany();
-    std::string enumToStringConverter(HealthInsuranceCompanyTypes::types& type);
 
-     bool isSet(HealthInsuranceCompanyTypes::types& healthInsuranceCompany);
+     bool isSet();
+     bool isEqual(HealthInsuranceCompany&  healthInsuranceCompany);
+
 private:
+    std::string enumToStringConverter(HealthInsuranceCompanyTypes::types& type);
     std::string findHealthInsuranceCompany(const std::string& pfad);
     HealthInsuranceCompanyTypes::types stringToEnumConverter( const std::string& healthInsuranceCompany);
+
     HealthInsuranceCompanyTypes::types healthInsuranceCompany;
 };

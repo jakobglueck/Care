@@ -10,6 +10,8 @@ Address::Address(City &city, PostalCode &postalCode, StreetName &streetName) {
     this->setStreetName(streetName);
 }
 
+Address::Address() {}
+
 void Address::setStreetName(StreetName &streetName) {
     this->streetName = streetName;
 }
@@ -32,4 +34,9 @@ PostalCode Address::getPostalCode() {
 
 StreetName Address::getStreetName() {
     return this->streetName;
+}
+
+bool Address::isEqual(Address &address) {
+    return this->streetName.isEqual(address.streetName) && this->postalCode.isEqual(address.postalCode) &&
+    this->city.isEqual(address.city);
 }
