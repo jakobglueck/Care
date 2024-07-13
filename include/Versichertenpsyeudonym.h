@@ -8,10 +8,10 @@
 
 class InsuredPseudonym {
 public:
-    InsuredPseudonym(std::string& insuredPseudonym);
+    InsuredPseudonym(std::string insuredPseudonym);
     InsuredPseudonym();
 
-    void setInsuredPseudonym(std::string& insuredPseudonym);
+    void setInsuredPseudonym(std::string insuredPseudonym);
     std::string getInsuredPseudonym();
 
     bool isSet();

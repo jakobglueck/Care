@@ -34,7 +34,7 @@ namespace Districts{
 
 class KV_Districts{
 public:
-    KV_Districts(std::string& kvValue);
+    KV_Districts(std::string kvValue, std::string postalCode);
     KV_Districts();
 
     void setValue(std::string kvValue);
@@ -45,10 +45,11 @@ public:
     bool isSet(KV_Districts kvDistricts);
     bool isEqual(KV_Districts& kvDistricts);
 
+    Districts::FederalStates parsePDFAndGetKV(std::string postalcode);
+
 private:
-    Districts::FederalStates StringConverterInEnumValue(std::string& kvValue);
+    Districts::FederalStates StringConverterInEnumValue(std::string& kvValue, std::string& postalCode);
     std::string EnumConverterInStringValue(Districts::FederalStates& numberValue);
-    Districts::FederalStates parsePDFAndGetKV(const std::string& cityName);
 
     Districts::FederalStates numberValue;
     std::string kvValue;

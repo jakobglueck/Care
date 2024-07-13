@@ -21,10 +21,10 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 # Include directories for GoogleTest
-include_directories(${gtest_INCLUDE_DIRS})
+include_directories(${googletest_SOURCE_DIR}/googletest/include)
 
 # Glob test source files
-file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/test_Arztname.cpp)
+file(GLOB TEST_SRC_FILES ${PROJECT_SOURCE_DIR}/test/*.cpp)
 message("HEADER : ${TEST_SRC_FILES}")
 
 # Glob factory source and header files
@@ -32,12 +32,13 @@ file(GLOB FACTORIES_SRC ${PROJECT_SOURCE_DIR}/test/ValueFactory/src/*.cpp)
 file(GLOB FACTORIES_H ${PROJECT_SOURCE_DIR}/test/ValueFactory/include/*.h)
 
 # Add library for factories
-add_library(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC})
+add_library(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC} ${TEST_SRC_FILES})
 
 # Add executable for running unit tests
 add_executable(runUnitTest ${TEST_SRC_FILES})
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/test/ValueFactory)
 include_directories(${POPPLER_INCLUDE_DIRS})
 # Include GoogleTest
 include(GoogleTest)

@@ -7,50 +7,27 @@
 
 class ArztnameExampleFactory {
 public:
+    static DoctorTitle doktorTitle();
+    static std::string normalFirstName();
+    static std::string normalLastName();
+    static DoctorName normalDoctorName();
 
-    static std::string normalVorname();
-    static std::string normalNachname();
+    static DoctorTitle dr_dr_Title();
+    static std::string longFirstName();
+    static std::string longLastName();
+    static DoctorName longDoctorName();
 
-    static std::string shortVorname();
-    static std::string shortNachname();
+    static DoctorTitle emptyTitle();
+    static std::string invalidFirstName();
+    static std::string invalidLastName();
+    static DoctorName invalidDoctorName();
 
-    static std::string longVorname();
-    static std::string longNachname();
+    static std::string EmptyFirstName();
+    static std::string FullLastName();
+    static DoctorName FullLastNameDoctorName();
 
-    static std::string doubleVorname();
-    static std::string doubleNachname();
-
-    static std::string tripleVorname();
-    static std::string tripleNachname();
-
-    static std::string validNumberVorname();
-    static std::string validNumberNachname();
-
-    static std::string emtpyVorname();
-    static std::string emtpyNachname();
-
-    static std::string invalidNumberVorname1();
-    static std::string invalidNumberNachname1();
-
-    static std::string invalidNumberVorname2();
-    static std::string invalidNumberNachname2();
-
-    static std::string invalidNumberVorname3();
-    static std::string invalidNumberNachname3();
-
-    static std::string invalidNumberVorname4();
-    static std::string invalidNumberNachname4();
-
-    static DoctorName normalName();
-    static DoctorName shortName();
-    static DoctorName longName();
-    static DoctorName doubleName();
-    static DoctorName tripleName();
-    static DoctorName validNumberName();
-    static DoctorName emtpyName();
-    static DoctorName invalidNumberName1();
-    static DoctorName invalidNumberName2();
-    static DoctorName invalidNumberName3();
-    static DoctorName invalidNumberName4();
+    static std::string FullFirstName();
+    static std::string EmptyLastName();
+    static DoctorName FullFirstNameDoctorName();
 };
 

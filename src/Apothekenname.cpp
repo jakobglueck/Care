@@ -4,28 +4,28 @@
 
 #include "Apothekenname.h"
 
-PharmacyName::PharmacyName(std::string &pharmacyName) {
+PharmacyName::PharmacyName(std::string pharmacyName) {
     if (this->detectNameAttachment(pharmacyName)) {
-        this->removeNameAttachments(pharmacyName);
+        pharmacyName = this->removeNameAttachments(pharmacyName);
     }
     this->setPharmacyName(pharmacyName);
 }
 
 PharmacyName::PharmacyName() {}
 
-void PharmacyName::setPharmacyName(const std::string &pharmacyName) {
+void PharmacyName::setPharmacyName(std::string pharmacyName) {
+    // Entfernen von führenden und nachfolgenden Leerzeichen
+    pharmacyName.erase(pharmacyName.find_last_not_of(" \n\r\t") + 1);
+    pharmacyName.erase(0, pharmacyName.find_first_not_of(" \n\r\t"));
     this->pharmacyName = pharmacyName;
 }
 
-std::string PharmacyName::getPharmacyName() const {
+std::string PharmacyName::getPharmacyName() {
     return this->pharmacyName;
 }
 
-bool PharmacyName::detectNameAttachment(const std::string &pharmacyName) const {
-    std::vector<std::string> keywords = {
-            "e.K.", "e. K.", "e.K ", "e. K",
-            "gGmbH", "GmbH", "Inh.", "Inhaber"
-    };
+bool PharmacyName::detectNameAttachment(std::string pharmacyName) {
+    std::vector<std::string> keywords = this->keywords();
 
     for (const auto& keyword : keywords) {
         if (pharmacyName.find(keyword) != std::string::npos) {
@@ -36,11 +36,8 @@ bool PharmacyName::detectNameAttachment(const std::string &pharmacyName) const {
     return false;
 }
 
-void PharmacyName::removeNameAttachments(std::string &pharmacyName) const {
-    std::vector<std::string> keywords = {
-            "e.K.", "e. K.", "e.K ", "e. K",
-            "gGmbH", "GmbH", "Inh.", "Inhaber"
-    };
+std::string PharmacyName::removeNameAttachments(std::string pharmacyName) {
+    std::vector<std::string> keywords = this->keywords();
 
     for (const auto& keyword : keywords) {
         size_t pos;
@@ -48,8 +45,18 @@ void PharmacyName::removeNameAttachments(std::string &pharmacyName) const {
             pharmacyName.replace(pos, keyword.length(), "");
         }
     }
+
+    pharmacyName.erase(pharmacyName.find_last_not_of(" \n\r\t") + 1);
+    pharmacyName.erase(0, pharmacyName.find_first_not_of(" \n\r\t"));
+
+    return pharmacyName;
 }
 
 bool PharmacyName::isEqual(PharmacyName &pharmacyName) {
     return this->pharmacyName == pharmacyName.pharmacyName;
+}
+
+std::vector<std::string> PharmacyName::keywords() {
+    return { "e.K.", "e. K.", "e.K ", "e. K","B.V.","PE","Filiale","e.Kfm","e. Kfm","e.Kfr.",
+             "Zytostatika","eK","OHG","oHG","e.K","gGmbH", "GmbH", "Inh.", "Inhaber"};
 }

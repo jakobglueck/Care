@@ -4,25 +4,25 @@
 
 #include "VOID.h"
 
-VOID::VOID(std::string &vo_id) {
+VOID::VOID(std::string vo_id) {
     if (this->isSet(vo_id)) {
         this->setVOID(vo_id);
     } else {
-        this->setVOID((std::string&)"");
+        this->setVOID("");
     }
 }
 
 VOID::VOID() {}
 
-void VOID::setVOID(const std::string &vo_id) {
+void VOID::setVOID(std::string vo_id) {
     this->vo_id = vo_id;
 }
 
-std::string VOID::getVOID() const {
+std::string VOID::getVOID() {
     return this->vo_id;
 }
 
-bool VOID::isSet(const std::string &vo_id) const {
+bool VOID::isSet(std::string vo_id) {
     return !vo_id.empty();
 }
 

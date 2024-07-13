@@ -9,10 +9,10 @@
 class PostalCode{
 
 public:
-    PostalCode(std::string& postalCode);
+    PostalCode(std::string postalCode);
     PostalCode();
 
-    void setPostalCode(std::string& postalCode);
+    void setPostalCode(std::string postalCode);
 
     std::string getPostalCode();
 
@@ -21,7 +21,7 @@ public:
 private:
     bool checkPostalCode(std::string& postalCode);
 
-    std::string& correctPostalCode(std::string& postalCode);
+    std::string correctPostalCode(std::string& postalCode);
 
     std::string postalCode;
 };

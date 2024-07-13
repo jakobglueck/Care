@@ -3,7 +3,7 @@
 //
 #include "Arztname.h"
 
-DoctorName::DoctorName(std::string &vorname, std::string &nachname, DoctorTitle &doctorTitle){
+DoctorName::DoctorName(DoctorTitle doctorTitle, std::string vorname, std::string nachname){
     this->correctVorname(vorname);
     this->correctNachname(nachname);
     this->setDoctorTitle(doctorTitle);
@@ -21,6 +21,7 @@ void DoctorName::setNachname(std::string &nachname) {
 }
 
 void DoctorName::setDoctorTitle(DoctorTitle &doctorTitle) {
+    this->doctorTitle = doctorTitle;
 }
 
 std::string DoctorName::getVorname() {
@@ -28,7 +29,7 @@ std::string DoctorName::getVorname() {
 }
 
 std::string DoctorName::getNachname() {
-    return this->vorname;
+    return this->nachname;
 }
 
 DoctorTitle DoctorName::getDoctorTitle() {
@@ -45,7 +46,7 @@ bool DoctorName::checkString(std::string &name) {
     if (std::regex_match(name, std::regex("[0-9]+"))) {
         return false;
     }
-    std::regex pattern("^[\\p{L}]+(?:[ -][\\p{L}]+)*$");
+    std::regex pattern("^(?:[A-Za-z]+\\.)?\\s*[A-Za-z]+(?:[ -][A-Za-z]+)*$");
     if(!std::regex_match(name, pattern)){
         return false;
     }
@@ -75,7 +76,7 @@ void DoctorName::correctDoctorTitle(std::string &doctorTitle) {
 }
 
 bool DoctorName::checkStringEmpty(std::string &name) {
-    if(name.empty()){
+    if(name == ""){
         return true;
     }
     return false;
@@ -83,25 +84,20 @@ bool DoctorName::checkStringEmpty(std::string &name) {
 
 void DoctorName::ConvertFullName() {
 
-    DoctorTitle doctorTitle = DoctorTitle((std::string &)"");
+    DoctorTitle doctorTitle = DoctorTitle(this->doctorTitle.getDoctorTitle());
     std::tuple<DoctorTitle, std::string, std::string> fullname(doctorTitle, "","");
 
     if(this->checkStringEmpty(this->vorname) && !this->checkStringEmpty(this->nachname)  ){
-        fullname = this->stringConverter(this->vorname);
-        this->setDoctorTitle(std::get<0>(fullname));
-        this->setVorname(std::get<1>(fullname));
-        this->setNachname(std::get<2>(fullname));
-    }
-    else if(!this->checkStringEmpty(this->vorname) && this->checkStringEmpty(this->nachname)  ){
         fullname = this->stringConverter(this->nachname);
         this->setDoctorTitle(std::get<0>(fullname));
         this->setVorname(std::get<1>(fullname));
         this->setNachname(std::get<2>(fullname));
     }
-    else{
-        this->setVorname((std::string &) "");
-        this->setNachname((std::string &)"");
-        this->setDoctorTitle(doctorTitle);
+    else if(!this->checkStringEmpty(this->vorname) && this->checkStringEmpty(this->nachname)  ){
+        fullname = this->stringConverter(this->vorname);
+        this->setDoctorTitle(std::get<0>(fullname));
+        this->setVorname(std::get<1>(fullname));
+        this->setNachname(std::get<2>(fullname));
     }
 }
 

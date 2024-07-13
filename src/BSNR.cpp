@@ -4,7 +4,7 @@
 
 #include "BSNR.h"
 
-BSNR::BSNR(std::string &bsnr) {
+BSNR::BSNR(std::string bsnr) {
     if(this->detectWrongBSNR(bsnr)){
         this->setBSNR(this->convertWrongBSNR(bsnr));
     }
@@ -15,7 +15,7 @@ BSNR::BSNR(std::string &bsnr) {
 
 BSNR::BSNR() {}
 
-void BSNR::setBSNR(std::string &bsnr) {
+void BSNR::setBSNR(std::string bsnr) {
     this->bsnr = bsnr;
 }
 
@@ -23,11 +23,15 @@ std::string BSNR::getBSNR() {
     return this->bsnr;
 }
 
-bool BSNR::detectWrongBSNR(std::string &bsnr) {
+bool BSNR::detectWrongBSNR(std::string bsnr) {
     std::string digits;
     std::copy_if(bsnr.begin(), bsnr.end(), std::back_inserter(digits), ::isdigit);
 
     if (digits.length() < 5) {
+        return true;
+    }
+
+    if (digits.length() > 9) {
         return true;
     }
 
@@ -43,8 +47,8 @@ bool BSNR::detectWrongBSNR(std::string &bsnr) {
     return false;
 }
 
-std::string& BSNR::convertWrongBSNR(std::string &bsnr) {
-    return (std::string&)"";
+std::string BSNR::convertWrongBSNR(std::string bsnr) {
+    return "";
 }
 
 bool BSNR::isEqual(BSNR &bsnr) {

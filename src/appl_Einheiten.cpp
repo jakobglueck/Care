@@ -4,13 +4,13 @@
 
 #include "appl_Einheiten.h"
 
-ApplicationUnits::ApplicationUnits(std::string &amount) {
+ApplicationUnits::ApplicationUnits(std::string amount) {
     this->setApplicationUnits(this->correctApplicationUnits(amount));
 }
 
 ApplicationUnits::ApplicationUnits() {}
 
-void ApplicationUnits::setApplicationUnits(std::string &amount) {
+void ApplicationUnits::setApplicationUnits(std::string amount) {
     this->amount = amount;
 }
 
@@ -19,26 +19,26 @@ std::string ApplicationUnits::getApplicationUnits() {
 }
 
 bool ApplicationUnits::isValidNumber(std::string &amount) {
-    if(amount.size() > 1){
+    if(amount.size() < 1){
         return false;
     }
     for(auto c : amount){
-        if(isdigit(c)) {
+        if(!isdigit(c)) {
             return false;
         }
     }
-    if(std::stoi(amount) < 1 && std::stoi(amount) > 13 ){
+    if(std::stoi(amount) < 1 && std::stoi(amount) > 20 ){
         return false;
     }
     return true;
 }
 
-std::string& ApplicationUnits::correctApplicationUnits(std::string& amount) {
+std::string ApplicationUnits::correctApplicationUnits(std::string amount) {
     if(this->isValidNumber(amount)){
         return amount;
     }
     else{
-        return (std::string&)"";
+        return "";
     }
 }
 

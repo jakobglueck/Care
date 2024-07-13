@@ -8,20 +8,20 @@
 
 class LANR {
 public:
-    LANR(std::string& lanr);
+    LANR(std::string lanr);
     LANR();
 
-    void setLANR(const std::string& lanr);
-    void setTempLANR(const std::string& lanr);
+    void setLANR(std::string lanr);
+    void setTempLANR(std::string lanr);
 
-    std::string getLANR() const;
-    std::string getTempLANR() const;
+    std::string getLANR();
+    std::string getTempLANR();
 
     bool isEqual(LANR& lanr);
 
 private:
-    bool detectInvalidLANR(const std::string& lanr) const;
-    std::string removeLANR(const std::string& lanr) const;
+    bool detectInvalidLANR( std::string& lanr);
+    std::string removeLANR( std::string& lanr);
 
     std::string lanr;
     std::string templanr;

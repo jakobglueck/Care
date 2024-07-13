@@ -4,13 +4,13 @@
 
 #include "Versichertenpsyeudonym.h"
 
-InsuredPseudonym::InsuredPseudonym(std::string &insuredPseudonym) {
+InsuredPseudonym::InsuredPseudonym(std::string insuredPseudonym) {
     this->setInsuredPseudonym(insuredPseudonym);
 }
 
 InsuredPseudonym::InsuredPseudonym() {}
 
-void InsuredPseudonym::setInsuredPseudonym(std::string &insuredPseudonym) {
+void InsuredPseudonym::setInsuredPseudonym(std::string insuredPseudonym) {
     this->insuredPseudonym = insuredPseudonym;
 }
 

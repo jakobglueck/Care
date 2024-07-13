@@ -31,46 +31,48 @@ namespace Status{
 
 class Prescription{
 public:
-    Prescription(DoctorName& doctorName,Pharmaceutical& arzneimittel,Address& address, PharmacyName& pharmacyName,
-                 ApplicationUnits& applicationUnits, Beleg_Void& belegVoid,
-                 OperationalDesignation operationalDesignation, BSNR& bsnr, Date& date,
-                 MedicalSpecialty& medicalSpecialty,PharmacyOwner& pharmacyOwner,
-                 HealthInsuranceCompany& healthInsuranceCompany,KV_Districts& kvDistricts,LANR& lanr,
-                 InsuredPseudonym& insuredPseudonym);
+    Prescription(DoctorName doctorName,Pharmaceutical pharmaceutical,Address address, PharmacyName pharmacyName,
+                 ApplicationUnits applicationUnits, Beleg_Void belegVoid,
+                 OperationalDesignation operationalDesignation, BSNR bsnr, Date date,
+                 MedicalSpecialty medicalSpecialty,PharmacyOwner pharmacyOwner,Address pharmacyAddress,
+                 HealthInsuranceCompany healthInsuranceCompany,KV_Districts kvDistricts,LANR lanr,
+                 InsuredPseudonym insuredPseudonym);
     Prescription();
 
-    void setDoctorName(DoctorName& doctorName);
-    void setPharmaceutical(Pharmaceutical& pharmaceutical);
-    void setAddress(Address& address);
-    void setPharmacyName(PharmacyName& pharmacyName);
-    void setApplicationUnits(ApplicationUnits& applicationUnits);
-    void setBelegVoid(Beleg_Void& belegVoid);
-    void setOperationalDesignation(OperationalDesignation& operationalDesignation);
-    void setBSNR(BSNR& bsnr);
-    void setDate(Date& date);
-    void setMedicalSpecialty(MedicalSpecialty& medicalSpecialty);
-    void setPharmacyOwner(PharmacyOwner& pharmacyOwner);
-    void setHealthInsuranceCompany(HealthInsuranceCompany& healthInsuranceCompany);
-    void setKVDistricts(KV_Districts& kvDistricts);
-    void setLANR(LANR& lanr);
-    void setInsuredPseudonym(InsuredPseudonym& insuredPseudonym);
+    void setDoctorName(DoctorName doctorName);
+    void setPharmaceutical(Pharmaceutical pharmaceutical);
+    void setAddress(Address address);
+    void setPharmacyAddress(Address pharmacyAddress);
+    void setPharmacyName(PharmacyName pharmacyName);
+    void setApplicationUnits(ApplicationUnits applicationUnits);
+    void setBelegVoid(Beleg_Void belegVoid);
+    void setOperationalDesignation(OperationalDesignation operationalDesignation);
+    void setBSNR(BSNR bsnr);
+    void setDate(Date date);
+    void setMedicalSpecialty(MedicalSpecialty medicalSpecialty);
+    void setPharmacyOwner(PharmacyOwner pharmacyOwner);
+    void setHealthInsuranceCompany(HealthInsuranceCompany healthInsuranceCompany);
+    void setKVDistricts(KV_Districts kvDistricts);
+    void setLANR(LANR lanr);
+    void setInsuredPseudonym(InsuredPseudonym insuredPseudonym);
     void setPrescriptionStatus(Status::PrescriptionStatus prescriptionStatus);
 
-    DoctorName getDoctorName() const;
-    Pharmaceutical getPharmaceutical() const;
-    Address getAddress() const;
-    PharmacyName getPharmacyName() const;
-    ApplicationUnits getApplicationUnits() const;
-    Beleg_Void getBelegVoid() const;
-    OperationalDesignation getOperationalDesignation() const;
-    BSNR getBSNR() const;
-    Date getDate() const;
-    MedicalSpecialty getMedicalSpecialty() const;
-    PharmacyOwner getPharmacyOwner() const;
-    HealthInsuranceCompany getHealthInsuranceCompany() const;
-    KV_Districts getKVDistricts() const;
-    LANR getLANR() const;
-    InsuredPseudonym getInsuredPseudonym() const;
+    DoctorName getDoctorName();
+    Pharmaceutical getPharmaceutical();
+    Address getAddress();
+    Address getPharmacyAddress();
+    PharmacyName getPharmacyName();
+    ApplicationUnits getApplicationUnits();
+    Beleg_Void getBelegVoid();
+    OperationalDesignation getOperationalDesignation();
+    BSNR getBSNR() ;
+    Date getDate();
+    MedicalSpecialty getMedicalSpecialty();
+    PharmacyOwner getPharmacyOwner();
+    HealthInsuranceCompany getHealthInsuranceCompany();
+    KV_Districts getKVDistricts();
+    LANR getLANR();
+    InsuredPseudonym getInsuredPseudonym();
     Status::PrescriptionStatus getPrescriptionStatus();
 
     bool mainValueAreSet();
@@ -81,6 +83,7 @@ private:
     DoctorName doctorName;
     Pharmaceutical pharmaceutical;
     Address address;
+    Address pharmacyAddress;
     PharmacyName pharmacyName;
     ApplicationUnits applicationUnits;
     Beleg_Void belegVoid;

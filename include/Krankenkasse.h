@@ -56,19 +56,19 @@ namespace HealthInsuranceCompanyTypes{
 
 class HealthInsuranceCompany{
 public:
-    HealthInsuranceCompany(std::string& healthInsuranceCompany);
+    HealthInsuranceCompany(std::string healthInsuranceCompany);
     HealthInsuranceCompany();
 
-    void setHealthInsuranceCompany(const HealthInsuranceCompanyTypes::types& healthInsuranceCompany);
-    HealthInsuranceCompanyTypes::types getHealthInsuranceCompany();
+    void setHealthInsuranceCompany(HealthInsuranceCompanyTypes::types healthInsuranceCompany);
+    std::string getHealthInsuranceCompany();
 
      bool isSet();
      bool isEqual(HealthInsuranceCompany&  healthInsuranceCompany);
 
 private:
-    std::string enumToStringConverter(HealthInsuranceCompanyTypes::types& type);
-    std::string findHealthInsuranceCompany(const std::string& pfad);
-    HealthInsuranceCompanyTypes::types stringToEnumConverter( const std::string& healthInsuranceCompany);
+    std::string enumToStringConverter(HealthInsuranceCompanyTypes::types type);
+    std::string findHealthInsuranceCompany(std::string pfad);
+    HealthInsuranceCompanyTypes::types stringToEnumConverter(std::string healthInsuranceCompany);
 
     HealthInsuranceCompanyTypes::types healthInsuranceCompany;
 };

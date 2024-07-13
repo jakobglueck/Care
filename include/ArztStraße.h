@@ -8,18 +8,19 @@
 
 class StreetName{
 public:
-    StreetName(std::string& streetName);
+    StreetName(std::string streetName);
     StreetName();
-    void setStreetName(const std::string& streetName);
+    void setStreetName(std::string streetName);
 
     std::string getStreetName();
 
     bool isEqual(StreetName& streetName);
 
 private:
-    bool checkStreetName(std::string& streetName);
+    bool checkStreetName(std::string streetName);
+    std::string replaceSubstring(std::string input, std::string search, std::string replace);
 
-    std::string correctStreetName(std::string& postalCode);
+    std::string correctStreetName(std::string streetName);
 
     std::string streetName;
 };

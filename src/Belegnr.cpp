@@ -4,7 +4,7 @@
 
 #include "Belegnr.h"
 
-BelegNr::BelegNr(std::string &belegNr) {
+BelegNr::BelegNr(std::string belegNr) {
     if (this->isSet(belegNr)) {
         this->setBelegNr(belegNr);
     } else {
@@ -14,15 +14,15 @@ BelegNr::BelegNr(std::string &belegNr) {
 
 BelegNr::BelegNr() {}
 
-void BelegNr::setBelegNr(const std::string &belegNr) {
+void BelegNr::setBelegNr(std::string belegNr) {
     this->belegNr = belegNr;
 }
 
-std::string BelegNr::getBelegNr() const {
+std::string BelegNr::getBelegNr(){
     return this->belegNr;
 }
 
-bool BelegNr::isSet(const std::string &belegNr) const {
+bool BelegNr::isSet (std::string &belegNr) {
     return !belegNr.empty();
 }
 

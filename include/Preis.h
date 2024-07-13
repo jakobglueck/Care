@@ -6,8 +6,8 @@
 
 #include "include.h"
 
-namespace PriceType{
-    enum type{
+namespace PriceType {
+    enum type {
         GP,
         EP
     };
@@ -15,19 +15,21 @@ namespace PriceType{
 
 class Price {
 public:
-    Price(float &price, int &amount);
+    Price(float price, int amount);
     Price();
 
-    void setPrice(const float &price);
-    float getPrice() const;
-    void setAmount(const int &amount);
-    float getAmount() const;
+    void setPrice( float price);
+    float getPrice();
+    void setAmount( int amount);
+    int getAmount();
 
-    bool isNULL() const;
-    bool isEqual(Price& price);
+    bool isNULL();
+    bool isEqual(Price &price);
 
 private:
     int checkAmount(int &amount);
+    float roundToTwoDecimalPlaces(float value);
+
     float price;
     int amount;
 };

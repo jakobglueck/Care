@@ -8,13 +8,13 @@
 
 class BelegNr {
 public:
-    BelegNr(std::string &belegNr);
+    BelegNr(std::string belegNr);
     BelegNr();
 
-    void setBelegNr(const std::string &belegNr);
-    std::string getBelegNr() const;
+    void setBelegNr(std::string belegNr);
+    std::string getBelegNr();
 
-    bool isSet(const std::string &belegNr) const;
+    bool isSet(std::string &belegNr);
     bool isEqual(BelegNr& belegNr);
 
 private:

@@ -20,10 +20,10 @@ namespace AcademicTitles{
 
 class DoctorTitle{
 public:
-    DoctorTitle(std::string& title);
+    DoctorTitle(std::string title);
     DoctorTitle();
 
-    void setDoctorTitle(const std::string& doctorTitle);
+    void setDoctorTitle(const std::string doctorTitle);
     std::string getDoctorTitle() const;
 
     bool isEqual(DoctorTitle& doctorTitle);

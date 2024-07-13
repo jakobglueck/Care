@@ -4,14 +4,14 @@
 
 #include "DoktorTitel.h"
 
-DoctorTitle::DoctorTitle(std::string &title) {
+DoctorTitle::DoctorTitle(std::string title) {
     AcademicTitles::enumTitle tempTitle =  this->stringConverter(title);
     this->setDoctorTitle(this->enumConverter(tempTitle));
 }
 
 DoctorTitle::DoctorTitle() {}
 
-void DoctorTitle::setDoctorTitle(const std::string& doctorTitle) {
+void DoctorTitle::setDoctorTitle(const std::string doctorTitle) {
     this->doctorTitle = doctorTitle;
 }
 
@@ -20,34 +20,55 @@ std::string DoctorTitle::getDoctorTitle() const{
 }
 
 AcademicTitles::enumTitle DoctorTitle::stringConverter(const std::string& stringTitle) {
-    if (stringTitle.find_first_of("Dr.med") != std::string::npos  || stringTitle.find_first_of("Dr. med") != std::string::npos || stringTitle.find_first_of("Doktor") != std::string::npos){
-        if (stringTitle.find("Pro.") != std::string::npos  || stringTitle.find("Professor") != std::string::npos){
-                if (stringTitle.find("Dr.med") != std::string::npos  || stringTitle.find("Dr. med") != std::string::npos || stringTitle.find("Doktor") != std::string::npos){
-                        return AcademicTitles::enumTitle::Prof_Dr_Dr;
-                }
-                else{
-                    return AcademicTitles::enumTitle::Prof_Dr;
-                }
+    bool hasDr = (stringTitle.find("Dr.") != std::string::npos ||
+                  stringTitle.find("Doctor") != std::string::npos ||
+                  stringTitle.find("dr") != std::string::npos ||
+                  stringTitle.find("MUDr") != std::string::npos ||
+                  stringTitle.find("MD.") != std::string::npos ||
+                  stringTitle.find("MBBS") != std::string::npos ||
+                  stringTitle.find("M.D.") != std::string::npos ||
+                  stringTitle.find("M.B.B.S.") != std::string::npos ||
+                  stringTitle.find("doctor") != std::string::npos ||
+                  stringTitle.find("docteur") != std::string::npos ||
+                  stringTitle.find("doctoris") != std::string::npos ||
+                  stringTitle.find("Doctoris") != std::string::npos ||
+                  stringTitle.find("Doctora") != std::string::npos ||
+                  stringTitle.find("Dott.") != std::string::npos ||
+                  stringTitle.find("Doktor") != std::string::npos);
+
+    bool hasProf = (stringTitle.find("Prof.") != std::string::npos ||
+                    stringTitle.find("Professorin") != std::string::npos ||
+                    stringTitle.find("Professor") != std::string::npos);
+
+    bool hasPD = (stringTitle.find("PD") != std::string::npos ||
+                  stringTitle.find("Privatdozent") != std::string::npos ||
+                  stringTitle.find("Priv.") != std::string::npos);
+
+    bool hasDrDr = (stringTitle.find("Dr.Dr.") != std::string::npos ||
+                    stringTitle.find("Dr.med. Dr.med.") != std::string::npos ||
+                    stringTitle.find("Dr.medDr.") != std::string::npos ||
+                    stringTitle.find("Dr. med Dr.") != std::string::npos ||
+                    stringTitle.find("DoktorDoktor") != std::string::npos);
+
+    if (hasProf) {
+        if (hasDrDr) {
+            return AcademicTitles::Prof_Dr_Dr;
+        } else if (hasDr) {
+            return AcademicTitles::Prof_Dr;
         }
-        if(stringTitle.find("PD") != std::string::npos  || stringTitle.find("Privatdozent") != std::string::npos || stringTitle.find("Priv.") != std::string::npos){
-            if (stringTitle.find("Dr.med") != std::string::npos  || stringTitle.find("Dr. med") != std::string::npos || stringTitle.find("Doktor") != std::string::npos){
-                return AcademicTitles::enumTitle::PD_Dr_Dr;
-            }
-            else{
-                return AcademicTitles::enumTitle::PD_Dr;
-            }
+    } else if (hasPD) {
+        if (hasDrDr) {
+            return AcademicTitles::PD_Dr_Dr;
+        } else if (hasDr) {
+            return AcademicTitles::PD_Dr;
         }
-        if (stringTitle.find("Dr.med") != std::string::npos  || stringTitle.find("Dr. med") != std::string::npos || stringTitle.find("Doktor") != std::string::npos){{
-                return AcademicTitles::enumTitle::Dr_Dr;
-            }
-        }
-        else{
-            return AcademicTitles::enumTitle::Dr;
-        }
+    } else if (hasDrDr) {
+        return AcademicTitles::Dr_Dr;
+    } else if (hasDr) {
+        return AcademicTitles::Dr;
     }
-    else{
-        return AcademicTitles::enumTitle::NoTitle;
-    }
+
+    return AcademicTitles::NoTitle;
 }
 
 std::string DoctorTitle::enumConverter(const AcademicTitles::enumTitle& enumTitle) {

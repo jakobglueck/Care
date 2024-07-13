@@ -8,17 +8,19 @@
 
 class PharmacyName {
 public:
-    PharmacyName(std::string &pharmacyName);
+    PharmacyName(std::string pharmacyName);
     PharmacyName();
 
-    void setPharmacyName(const std::string &pharmacyName);
-    std::string getPharmacyName() const;
+    void setPharmacyName(std::string pharmacyName);
+    std::string getPharmacyName();
 
     bool isEqual(PharmacyName& pharmacyName);
 
 private:
-    bool detectNameAttachment(const std::string &pharmacyName) const;
-    void removeNameAttachments(std::string &pharmacyName) const;
+    bool detectNameAttachment(std::string pharmacyName);
+    std::string removeNameAttachments(std::string pharmacyName);
+
+    std::vector<std::string> keywords();
 
     std::string pharmacyName;
 };

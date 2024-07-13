@@ -8,13 +8,13 @@
 
 class VOID {
 public:
-    VOID(std::string &vo_id);
+    VOID(std::string vo_id);
     VOID();
 
-    void setVOID(const std::string &vo_id);
-    std::string getVOID() const;
+    void setVOID(std::string vo_id);
+    std::string getVOID();
 
-    bool isSet(const std::string &vo_id) const;
+    bool isSet(std::string vo_id);
     bool isEqual(VOID& avoid);
 
 private:

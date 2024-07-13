@@ -9,7 +9,7 @@
 
 class DoctorName{
     public:
-        DoctorName(std::string& vorname, std::string& nachname, DoctorTitle& doctorTitle);
+        DoctorName(DoctorTitle doctorTitle, std::string vorname, std::string nachname);
         DoctorName();
 
         void setVorname(std::string& vorname);
