@@ -6,15 +6,24 @@
 
 FAM::FAM(std::vector<Prescription> database) {
     this->setDatabase(database);
-    for(size_t i = 0; i > database.size();i++){
-        if(database[i].getPrescriptionStatus() == Status::PrescriptionStatus::Unapproved){
-            this->unapprovedData.push_back(database[i]);
+
+    for (size_t i = 0; i < database.size(); i++) {
+        bool isDuplicate = false;
+        for (size_t j = 0; j < i; j++) {
+            if (database[i].isEqual(database[j])) {
+                isDuplicate = true;
+                break;
+            }
         }
-        if(database[i].isEqual(database[i+1])){
+
+        if (isDuplicate) {
             this->unapprovedData.push_back(database[i]);
-        }
-        else{
-            this->approvedData.push_back(database[i]);
+        } else {
+            if (database[i].getPrescriptionStatus() == Status::PrescriptionStatus::Unapproved) {
+                this->unapprovedData.push_back(database[i]);
+            } else {
+                this->approvedData.push_back(database[i]);
+            }
         }
     }
 }

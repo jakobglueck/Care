@@ -26,12 +26,8 @@ Prescription::Prescription(DoctorName doctorName,Pharmaceutical pharmaceutical,A
     this->setKVDistricts(kvDistricts);
     this->setLANR(lanr);
     this->setInsuredPseudonym(insuredPseudonym);
-    if(this->mainValueAreSet()){
-        this->setPrescriptionStatus(Status::PrescriptionStatus::Approved);
-    }
-    else{
-        this->setPrescriptionStatus(Status::PrescriptionStatus::Unapproved);
-    }
+    this->setPrescriptionStatus();
+
 }
 
 Prescription::Prescription() {}
@@ -44,8 +40,13 @@ void Prescription::setPharmaceutical(Pharmaceutical pharmaceutical) {
     this->pharmaceutical = pharmaceutical;
 }
 
+
 void Prescription::setAddress(Address address) {
     this->address = address;
+}
+
+void Prescription::setPharmacyAddress(Address pharmacyAddress) {
+    this->pharmacyAddress = pharmacyAddress;
 }
 
 void Prescription::setPharmacyName(PharmacyName pharmacyName) {
@@ -96,8 +97,13 @@ void Prescription::setInsuredPseudonym(InsuredPseudonym insuredPseudonym) {
     this->insuredPseudonym = insuredPseudonym;
 }
 
-void Prescription::setPrescriptionStatus(Status::PrescriptionStatus prescriptionStatus) {
-    this->prescriptionStatus = prescriptionStatus;
+void Prescription::setPrescriptionStatus() {
+    if(this->mainValueAreSet()){
+        this->prescriptionStatus =  Status::PrescriptionStatus::Approved;
+    }
+    else{
+        this->prescriptionStatus =Status::PrescriptionStatus::Unapproved;
+    }
 }
 
 DoctorName Prescription::getDoctorName() {

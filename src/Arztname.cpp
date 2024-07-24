@@ -46,10 +46,6 @@ bool DoctorName::checkString(std::string &name) {
     if (std::regex_match(name, std::regex("[0-9]+"))) {
         return false;
     }
-    std::regex pattern("^(?:[A-Za-z]+\\.)?\\s*[A-Za-z]+(?:[ -][A-Za-z]+)*$");
-    if(!std::regex_match(name, pattern)){
-        return false;
-    }
     return true;
 }
 
@@ -75,7 +71,7 @@ void DoctorName::correctDoctorTitle(std::string &doctorTitle) {
     this->doctorTitle = DoctorTitle(doctorTitle);
 }
 
-bool DoctorName::checkStringEmpty(std::string &name) {
+bool DoctorName::checkStringEmpty(std::string name) {
     if(name == ""){
         return true;
     }

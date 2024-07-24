@@ -1,47 +1,45 @@
-//
-// Created by Jakob Glück on 03.06.24.
-//
-
 #include "Preis.h"
 
-Price::Price(float &price, int& amount) {
+Price::Price(float price, int amount) {
     this->setPrice(price);
-    this->setAmount(this->checkAmount(amount));
+    this->setAmount(amount);
 }
 
 Price::Price() {}
 
-void Price::setPrice(const float &price) {
-    this->price = price;
+void Price::setPrice( float price) {
+    this->price = this->roundToTwoDecimalPlaces(price);
 }
 
-void Price::setAmount(const int &amount) {
-    this->amount = amount;
+float Price::getPrice() {
+    return price;
 }
 
-float Price::getPrice() const {
-    return this->price;
+void Price::setAmount(int amount) {
+    this->amount = this->checkAmount(amount);
 }
 
-float Price::getAmount() const {
-    return this->amount;
+int Price::getAmount() {
+    return amount;
 }
 
-bool Price::isNULL() const {
-    return this->price == 0.0f;
+bool Price::isNULL() {
+    return price == 0.0f;
+}
+
+bool Price::isEqual(Price &otherPrice) {
+    return (this->price == otherPrice.getPrice() && this->amount == otherPrice.getAmount());
 }
 
 int Price::checkAmount(int &amount) {
-    int tempAmount;
-    if(amount < 1){
-        tempAmount  = 0;
-    }
-    else {
-        tempAmount = amount;
-    }
-    return tempAmount;
+    return (amount < 0) ? 0 : amount;
 }
 
-bool Price::isEqual(Price &price) {
-    return this->price == price.price;
+float Price::roundToTwoDecimalPlaces(float value) {
+    std::stringstream stream;
+    stream.precision(2);
+    stream << std::fixed << value;
+    float result;
+    stream >> result;
+    return result;
 }

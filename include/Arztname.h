@@ -29,7 +29,7 @@ class DoctorName{
     void correctNachname(std::string& nachname);
     void correctDoctorTitle(std::string& doctorTitle);
 
-    bool checkStringEmpty(std::string& name);
+    bool checkStringEmpty(std::string name);
     bool checkString(std::string& name);
 
     std::tuple<DoctorTitle, std::string, std::string> stringConverter(std::string& name);

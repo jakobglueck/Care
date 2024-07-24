@@ -55,7 +55,7 @@ public:
     void setKVDistricts(KV_Districts kvDistricts);
     void setLANR(LANR lanr);
     void setInsuredPseudonym(InsuredPseudonym insuredPseudonym);
-    void setPrescriptionStatus(Status::PrescriptionStatus prescriptionStatus);
+    void setPrescriptionStatus();
 
     DoctorName getDoctorName();
     Pharmaceutical getPharmaceutical();

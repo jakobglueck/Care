@@ -4,21 +4,21 @@
 
 #include "Krankenkasse.h"
 
-HealthInsuranceCompany::HealthInsuranceCompany(std::string& healthInsuranceCompany) {
+HealthInsuranceCompany::HealthInsuranceCompany(std::string healthInsuranceCompany) {
     this->setHealthInsuranceCompany(this->stringToEnumConverter(this->findHealthInsuranceCompany(healthInsuranceCompany)));
 }
 
 HealthInsuranceCompany::HealthInsuranceCompany() {}
 
-void HealthInsuranceCompany::setHealthInsuranceCompany(const HealthInsuranceCompanyTypes::types &healthInsuranceCompany) {
+void HealthInsuranceCompany::setHealthInsuranceCompany(HealthInsuranceCompanyTypes::types healthInsuranceCompany) {
     this->healthInsuranceCompany = healthInsuranceCompany;
 }
 
-HealthInsuranceCompanyTypes::types HealthInsuranceCompany::getHealthInsuranceCompany() {
-    return this->healthInsuranceCompany;
+std::string HealthInsuranceCompany::getHealthInsuranceCompany() {
+    return this->enumToStringConverter(this->healthInsuranceCompany);
 }
 
-std::string HealthInsuranceCompany::enumToStringConverter(HealthInsuranceCompanyTypes::types &type) {
+std::string HealthInsuranceCompany::enumToStringConverter(HealthInsuranceCompanyTypes::types type) {
     switch(type) {
         case HealthInsuranceCompanyTypes::AOK_SACHSEN_ANHALT: return "AOK SA";
         case HealthInsuranceCompanyTypes::AOK_PLUS: return "AOK Plus";
@@ -66,7 +66,7 @@ std::string HealthInsuranceCompany::enumToStringConverter(HealthInsuranceCompany
     }
 }
 
-HealthInsuranceCompanyTypes::types HealthInsuranceCompany::stringToEnumConverter(const std::string &healthInsuranceCompany) {
+HealthInsuranceCompanyTypes::types HealthInsuranceCompany::stringToEnumConverter(std::string healthInsuranceCompany) {
     static const std::unordered_map<std::string, HealthInsuranceCompanyTypes::types> stringToEnum{
             {"AOK Sachsen Anhalt",             HealthInsuranceCompanyTypes::AOK_SACHSEN_ANHALT},
             {"AOK Plus",                       HealthInsuranceCompanyTypes::AOK_PLUS},
@@ -120,15 +120,15 @@ HealthInsuranceCompanyTypes::types HealthInsuranceCompany::stringToEnumConverter
     }
 }
 
-std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string &pfad) {
+std::string HealthInsuranceCompany::findHealthInsuranceCompany(std::string pfad) {
 
     size_t firstUnderscore = pfad.find('_');
-    if (firstUnderscore == std::string::npos) {
-        throw std::invalid_argument("Invalid file path format: " + pfad);
-    }
     std::string company = pfad.substr(0, firstUnderscore);
 
     std::transform(company.begin(), company.end(), company.begin(), ::toupper);
+    if(company == "" || company.empty()){
+        company = "Unknown";
+    }
     static const std::unordered_map<std::string, std::string> knownCompanies {
             {"AOK SACHSEN ANHALT", "AOK Sachsen Anhalt"},
             {"AOK PLUS", "AOK Plus"},
@@ -151,7 +151,7 @@ std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string
             {"BKK MAHLE", "BKK Mahle"},
             {"BKK MHPLUS", "BKK mhplus"},
             {"BKK MIELE", "BKK Miele"},
-            {"BKK VBU", "BKK VBU (jetzt mkk - meine Krankenkasse)"},
+            {"BKK VBU", "BKK VBU"},
             {"BKK PFALZ", "BKK Pfalz"},
             {"BKK PRONOVA", "BKK pronova"},
             {"BKK PROVITA", "BKK proVita"},
@@ -175,13 +175,14 @@ std::string HealthInsuranceCompany::findHealthInsuranceCompany(const std::string
             {"Unknown", "Unknown"},
     };
 
-
     auto it = knownCompanies.find(company);
     if (it != knownCompanies.end()) {
         return it->second;
-    } else {
-        throw std::invalid_argument("Unknown health insurance company in file path: " + company);
     }
+    else{
+        return "Unknown";
+    }
+
 }
 
 bool HealthInsuranceCompany::isSet() {

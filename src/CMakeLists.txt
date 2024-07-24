@@ -10,6 +10,6 @@ add_library(lib_extern ${SRC_FILES} ${HEADER_FILES} ${PDF_FILES})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${POPPLER_INCLUDE_DIRS})
 include_directories(${CMAKE_BINARY_DIR}/_deps/libxlsxwriter-src/include)
-include_directories(${CMAKE_BINARY_DIR}/_deps/libxls-src/include)
+include_directories(${CMAKE_BINARY_DIR}/_deps/xlnt-src/include)
 
-target_link_libraries(lib_extern PUBLIC ${POPPLER_LIBRARIES} xlsreader xlsxwriter)
+target_link_libraries(lib_extern PUBLIC ${POPPLER_LIBRARIES} xlsxwriter xlnt)

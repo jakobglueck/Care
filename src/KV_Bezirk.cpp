@@ -4,8 +4,8 @@
 
 #include "KV_Bezirk.h"
 
-KV_Districts::KV_Districts(std::string &kvValue) {
-    this->setNumberValue(this->StringConverterInEnumValue(kvValue));
+KV_Districts::KV_Districts(std::string kvValue, std::string postalCode) {
+    this->setNumberValue(this->StringConverterInEnumValue(kvValue, postalCode));
     this->setValue(this->EnumConverterInStringValue(this->numberValue));
 }
 
@@ -31,22 +31,24 @@ bool KV_Districts::isSet(KV_Districts kvDistricts) {
     return this->getValue() == kvDistricts.getValue() && this->getNumberValue() ==  kvDistricts.getNumberValue();
 }
 
-Districts::FederalStates KV_Districts::parsePDFAndGetKV(const std::string& cityName) {
-    std::string pdfPath = "PLZ_to_KV.pdf";
-    auto doc = poppler::document::load_from_file(pdfPath);
+Districts::FederalStates KV_Districts::parsePDFAndGetKV(std::string postalCode) {
+
+    auto doc = poppler::document::load_from_file("/Users/jakobgluck/Desktop/workspace/C++/Carenoble/KrankenkassenDatenmanagment/src/PLZ_to_KV.pdf");
     if (!doc) {
-        std::cerr << "Error loading PDF file." << std::endl;
+        std::cerr << "Failed to load PDF document: " << "PLZ_to_KV.pdf" << std::endl;
+        return Districts::Unknown;
+    }
+    if(postalCode.empty() || postalCode == ""){
         return Districts::Unknown;
     }
 
-    std::string lowercaseCity = cityName;
+    std::string lowercaseCity = postalCode;
     std::transform(lowercaseCity.begin(), lowercaseCity.end(), lowercaseCity.begin(), ::tolower);
 
     for (int i = 0; i < doc->pages(); ++i) {
         auto page = doc->create_page(i);
         if (!page) continue;
 
-        // Convert text to std::string
         auto utext = page->text();
         std::string text(utext.begin(), utext.end());
 
@@ -80,8 +82,7 @@ Districts::FederalStates KV_Districts::parsePDFAndGetKV(const std::string& cityN
     return Districts::Unknown;
 }
 
-
-Districts::FederalStates KV_Districts::StringConverterInEnumValue(std::string& kvValue) {
+Districts::FederalStates KV_Districts::StringConverterInEnumValue(std::string& kvValue, std::string& postalCode) {
     static const std::unordered_map<std::string, Districts::FederalStates> stringToEnumMap = {
             {"baden_württemberg", Districts::Baden_Württemberg},
             {"bayern", Districts::Bayern},
@@ -110,28 +111,28 @@ Districts::FederalStates KV_Districts::StringConverterInEnumValue(std::string& k
         return it->second;
     }
 
-    return parsePDFAndGetKV(kvValue);
+    return this->parsePDFAndGetKV(postalCode);
 }
 
 std::string KV_Districts::EnumConverterInStringValue(Districts::FederalStates& numberValue) {
     static const std::unordered_map<Districts::FederalStates, std::string> enumToStringMap = {
             {Districts::Baden_Württemberg, "1"},
-            {Districts::Bayern, "2"},
-            {Districts::Berlin, "3"},
-            {Districts::Brandenburg, "4"},
-            {Districts::Bremen, "5"},
-            {Districts::Hamburg, "6"},
-            {Districts::Hessen, "7"},
-            {Districts::Mecklenburg_Vorpommern, "8"},
-            {Districts::Niedersachsen, "9"},
-            {Districts::Nordrhein, "10"},
-            {Districts::Rheinland_Pfalz, "11"},
+            {Districts::Bayern, "6"},
+            {Districts::Berlin, "16"},
+            {Districts::Brandenburg, "11"},
+            {Districts::Bremen, "7"},
+            {Districts::Hamburg, "15"},
+            {Districts::Hessen, "8"},
+            {Districts::Mecklenburg_Vorpommern, "9"},
+            {Districts::Niedersachsen, "5"},
+            {Districts::Nordrhein, "17"},
+            {Districts::Rheinland_Pfalz, "4"},
             {Districts::Saarland, "12"},
-            {Districts::Sachsen, "13"},
-            {Districts::Sachsen_Anhalt, "14"},
-            {Districts::Schleswig_Holstein, "15"},
-            {Districts::Thüringen, "16"},
-            {Districts::Westfallen_Lippe, "17"},
+            {Districts::Sachsen, "10"},
+            {Districts::Sachsen_Anhalt, "3"},
+            {Districts::Schleswig_Holstein, "13"},
+            {Districts::Thüringen, "14"},
+            {Districts::Westfallen_Lippe, "2"},
             {Districts::Unknown, "0"}
     };
 

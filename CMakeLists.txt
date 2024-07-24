@@ -18,11 +18,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libxlsxwriter)
 
 FetchContent_Declare(
-        libxls
-        GIT_REPOSITORY https://github.com/libxls/libxls.git
+        xlnt
+        GIT_REPOSITORY https://github.com/tfussell/xlnt.git
         GIT_TAG master
 )
-FetchContent_MakeAvailable(libxls)
+FetchContent_MakeAvailable(xlnt)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(POPPLER REQUIRED poppler-cpp)

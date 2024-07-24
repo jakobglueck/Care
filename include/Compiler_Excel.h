@@ -6,10 +6,9 @@
 
 #include "include.h"
 #include "FAM_SHEET.h"
-#include "xls.h"
+#include "xlnt/xlnt.hpp"
 #undef BLANK_CELL
-#include "xlsxwriter.h"
-#undef BLANK_CELL
+#include "/Users/jakobgluck/Desktop/workspace/C++/Carenoble/KrankenkassenDatenmanagment/build/_deps/libxlsxwriter-src/include/xlsxwriter.h"
 
 class Compiler{
 public:
