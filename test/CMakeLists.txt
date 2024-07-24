@@ -2,7 +2,9 @@
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/test/bin)
-set(BINARY ${CMAKE_PROJECT_NAME}_test)
+
+# Pfad zur Excel-Datei
+set(EXCEL_FILE "${PROJECT_SOURCE_DIR}/test/AOK Bayern_01012024_01.24-12.24.xlsx")
 
 # Include directories for factories and common includes
 set(FACTORIES_INCLUDES ${PROJECT_SOURCE_DIR}/test/ValueFactory/)
@@ -32,14 +34,21 @@ file(GLOB FACTORIES_SRC ${PROJECT_SOURCE_DIR}/test/ValueFactory/src/*.cpp)
 file(GLOB FACTORIES_H ${PROJECT_SOURCE_DIR}/test/ValueFactory/include/*.h)
 
 # Add library for factories
-add_library(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC} ${TEST_SRC_FILES})
+add_library(FACTORIES STATIC ${FACTORIES_H} ${FACTORIES_SRC})
 
 # Add executable for running unit tests
 add_executable(runUnitTest ${TEST_SRC_FILES})
 
+# Kopieren der Excel-Datei ins Ausgabeverzeichnis
+add_custom_command(
+        TARGET runUnitTest POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy ${EXCEL_FILE} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+)
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/test/ValueFactory)
 include_directories(${POPPLER_INCLUDE_DIRS})
+
 # Include GoogleTest
 include(GoogleTest)
 
